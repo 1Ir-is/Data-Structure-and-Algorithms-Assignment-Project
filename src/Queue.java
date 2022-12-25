@@ -4,29 +4,17 @@ public class Queue {
     int front = -1;
     int rear = -1;
 
+    // init QUEUE
     public Queue(int M){
         Q = new char[M];
         this.MAX = M;
     }
-
-    boolean isFull(){
-        return (rear + 1) % MAX == front;
-    }
-
     boolean isEmpty(){
         return (front == -1);
     }
-
-    public int count(){
-        if (front == 0 && rear == MAX-1){
-            return MAX;
-        }
-        if (isEmpty()){
-            return 0;
-        }
-        return (2 * MAX + rear - front + 1) % MAX;
+    boolean isFull(){
+        return (rear + 1) % MAX == front;
     }
-
     public void enQueue(char x){
         if (isFull()){
             return;
@@ -39,7 +27,6 @@ public class Queue {
         }
         Q[rear] = x;
     }
-
     public char deQueue(){
         Character x = null;
         if (isEmpty()){
@@ -53,6 +40,15 @@ public class Queue {
             front = (front + 1) % MAX;
         }
         return x;
+    }
+    public int count(){
+        if (front == 0 && rear == MAX-1){
+            return MAX;
+        }
+        if (isEmpty()){
+            return 0;
+        }
+        return (2 * MAX + rear - front + 1) % MAX;
     }
 }
 

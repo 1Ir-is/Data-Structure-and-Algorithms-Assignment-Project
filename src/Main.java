@@ -1,38 +1,49 @@
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         Messenger messenger = new Messenger();
         TimeExecution timeExecution = new TimeExecution();
         Scanner sc = new Scanner(System.in);
-        System.out.print("Enter your message (Max: " + messenger.messageLimit + " characters): ");
+        System.out.print("(S1) Enter your message (Max: " + messenger.messageLimit + " characters): ");
         System.out.println();
-        String source = sc.nextLine();
+        String sourceMessage = sc.nextLine();
         System.out.println();
         boolean key = true;
         while (key)
         {
-            if (source.length()==0){
-                System.out.println("Your input is empty, please input again to send message!");
-                System.out.print("Enter your message (Max: " + messenger.messageLimit + " characters): ");
-                source = sc.nextLine();
+            if (sourceMessage.length() == 0){
+                System.out.println(" Your input is empty, please input again to send message!");
+                System.out.print("(S1) Enter your message (Max: " + messenger.messageLimit + " characters): ");
+                sourceMessage = sc.nextLine();
                 System.out.println();
             }
             else key = false;
         }
-        if (source.length()<= messenger.messageLimit)
+        if (sourceMessage.length() <= messenger.messageLimit)
         {
-            //time the function
+            // Time the function
             timeExecution.Start();
-            messenger.sendingMessage(source);
+
+            // Send message
+            messenger.sendingMessage(sourceMessage);
             timeExecution.Stop();
+
+            // Show message
             messenger.printMessage();
-            System.out.println("Successfully Transferred " + messenger.messageDestination.length() + " Characters!");
+
+            // Show successfully sent message
+            System.out.println("Successfully Sent " + messenger.S2.length() + " Characters!");
             System.out.println();
+
+            // Show buffer size
             System.out.println("Buffer Size: " + messenger.bufferLimit);
             System.out.println();
+
+            // Show time execution
             System.out.println("Executed time: " + timeExecution.Elapse() + " millisecond");
             System.out.println();
+
+            // Show memory
             System.out.println("Memory Usage before send message: " + (messenger.beforeUsedMem) / 1024 + " KB");
             System.out.println();
             System.out.println("Memory Usage after send message: " + messenger.afterUsedMem / 1024 + " KB");
@@ -42,20 +53,35 @@ public class Main {
         }
         else
         {
-            System.out.println("Your input too long, up to " + source.length() + " characters, " +
-                    "please resend, we only send messages with a maximum of " + messenger.messageLimit + " characters.");
+            // Show error
+            System.out.println("Your input too long, up to " + sourceMessage.length() + " characters, " +
+                    "some part of message might not get send," +
+                    " because we only send messages with a maximum of " + messenger.messageLimit + " characters.");
             System.out.println();
-            //time the function
+
+            // Time the function
             timeExecution.Start();
-            messenger.sendingMessage(source);
+            
+            // Send message
+            messenger.sendingMessage(sourceMessage);
             timeExecution.Stop();
+            
+            // Show message
             messenger.printMessage();
-            System.out.println("Successfully Transferred " + messenger.messageDestination.length() + " Characters!");
+
+            // Show successfully sent message
+            System.out.println("Successfully Sent " + messenger.S2.length() + " Characters!");
             System.out.println();
+            
+            // Show buffer size
             System.out.println("Buffer Size: " + messenger.bufferLimit);
             System.out.println();
+
+            // Show time execution
             System.out.println("Executed time: " + timeExecution.Elapse() + " millisecond");
             System.out.println();
+
+            // Show memory
             System.out.println("Memory Usage before send message: " + (messenger.beforeUsedMem) / 1024 + " KB");
             System.out.println();
             System.out.println("Memory Usage after send message: " + messenger.afterUsedMem / 1024 + " KB");

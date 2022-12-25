@@ -1,8 +1,7 @@
 public class Messenger {
     int bufferLimit = 150;
     int messageLimit = 250;
-
-    String messageDestination= "";
+    String S2= "";
     Runtime rt = Runtime.getRuntime();
 //    long beforeUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 //    long afterUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
@@ -13,46 +12,48 @@ public class Messenger {
     public Messenger()
     {
     }
-
     public void sendingMessage(String messageSource){
         rt.gc();
         beforeUsedMem = rt.totalMemory() - rt.freeMemory();
         Queue myQueue = new Queue(bufferLimit);
-        char[] source = messageSource.toCharArray();
+        char[] S1 = messageSource.toCharArray();
         int n = 0;
         try
         {
-            while(n < source.length && n < messageLimit)
+            while(n < S1.length && n < messageLimit)
             {
                 while(myQueue.count() < bufferLimit && n < messageLimit)
                 {
-                    myQueue.enQueue(source[n]);
+                    myQueue.enQueue(S1[n]);
                     n++;
 
-                    if (myQueue.isFull()){
-                        afterUsedMem = (rt.totalMemory()-rt.freeMemory());
+                    if (myQueue.isFull())
+                    {
+                        afterUsedMem = (rt.totalMemory() - rt.freeMemory());
                     }
                 }
-//                measure
-                if (afterUsedMem == 0){
-                    afterUsedMem = (rt.totalMemory()-rt.freeMemory());
+                //Measure
+                if (afterUsedMem == 0)
+                {
+                    afterUsedMem = (rt.totalMemory() - rt.freeMemory());
                 }
                 //when buffer full push
-                while(myQueue.count()!=0){
-                    messageDestination = messageDestination + myQueue.deQueue();
+                while(myQueue.count()!=0)
+                {
+                    S2 = S2 + myQueue.deQueue();
                 }
             }
         }
         catch (Exception e){
             while(myQueue.count() != 0){
-                messageDestination = messageDestination + myQueue.deQueue();
+                S2 = S2 + myQueue.deQueue();
             }
         }
     }
 
     public void printMessage(){
-        System.out.println("This is your message in " + messageLimit + " characters :");
-        System.out.println(messageDestination);
+        System.out.println("(S2) This is your message:");
+        System.out.println(S2);
         System.out.println();
     }
 
