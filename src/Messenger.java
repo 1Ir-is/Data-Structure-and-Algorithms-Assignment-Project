@@ -1,28 +1,24 @@
 public class Messenger {
-    int bufferLimit = 500;
-    int messageLimit = 10000;
+    int bufferLimit = 150;
+    int messageLimit = 250;
 
     String messageDestination= "";
+    Runtime rt = Runtime.getRuntime();
 //    long beforeUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 //    long afterUsedMem=Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory();
 //    long actualMemUsed=afterUsedMem-beforeUsedMem;
-//    Runtime rt = Runtime.getRuntime();
-//    long total_mem = rt.totalMemory();
-//    long free_mem = rt.freeMemory();
-//    long used_mem = total_mem - free_mem;
-    long memoryUsedBefore;
-    long memoryUsedAfter;
+
+    long beforeUsedMem;
+    long afterUsedMem;
     public Messenger()
     {
     }
 
     public void sendingMessage(String messageSource){
-        Runtime rt = Runtime.getRuntime();
         rt.gc();
-        memoryUsedBefore = (rt.totalMemory()-rt.freeMemory()/1024);
+        beforeUsedMem = rt.totalMemory() - rt.freeMemory();
         Queue myQueue = new Queue(bufferLimit);
         char[] source = messageSource.toCharArray();
-        memoryUsedAfter = (rt.totalMemory()-rt.freeMemory()/1024);
         int n = 0;
         try
         {
@@ -30,19 +26,26 @@ public class Messenger {
             {
                 while(myQueue.count() < bufferLimit && n < messageLimit)
                 {
-
                     myQueue.enQueue(source[n]);
                     n++;
+
+                    if (myQueue.isFull()){
+                        afterUsedMem = (rt.totalMemory()-rt.freeMemory());
+                    }
                 }
-                //When buffer is full!
-                while(myQueue.count() != 0){
-                    messageDestination += String.valueOf(myQueue.deQueue());
+//                measure
+                if (afterUsedMem == 0){
+                    afterUsedMem = (rt.totalMemory()-rt.freeMemory());
+                }
+                //when buffer full push
+                while(myQueue.count()!=0){
+                    messageDestination = messageDestination + myQueue.deQueue();
                 }
             }
         }
         catch (Exception e){
             while(myQueue.count() != 0){
-                messageDestination += String.valueOf(myQueue.deQueue());
+                messageDestination = messageDestination + myQueue.deQueue();
             }
         }
     }

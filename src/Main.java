@@ -9,7 +9,6 @@ public class Main {
         System.out.println();
         String source = sc.nextLine();
         System.out.println();
-
         boolean key = true;
         while (key)
         {
@@ -27,32 +26,42 @@ public class Main {
             timeExecution.Start();
             messenger.sendingMessage(source);
             timeExecution.Stop();
-
-
             messenger.printMessage();
             System.out.println("Successfully Transferred " + messenger.messageDestination.length() + " Characters!");
             System.out.println();
             System.out.println("Buffer Size: " + messenger.bufferLimit);
             System.out.println();
             System.out.println("Executed time: " + timeExecution.Elapse() + " millisecond");
+            System.out.println();
+            System.out.println("Memory Usage before send message: " + (messenger.beforeUsedMem) / 1024 + " KB");
+            System.out.println();
+            System.out.println("Memory Usage after send message: " + messenger.afterUsedMem / 1024 + " KB");
+            System.out.println();
+            System.out.println("Memory used: " + (messenger.afterUsedMem- messenger.beforeUsedMem)/1024 + " KB");
+            System.out.println();
         }
         else
         {
             System.out.println("Your input too long, up to " + source.length() + " characters, " +
-                    "please resend, we only send messages with a maximum of " + messenger.messageLimit + " characters");
+                    "please resend, we only send messages with a maximum of " + messenger.messageLimit + " characters.");
             System.out.println();
             //time the function
             timeExecution.Start();
             messenger.sendingMessage(source);
             timeExecution.Stop();
-
-
             messenger.printMessage();
             System.out.println("Successfully Transferred " + messenger.messageDestination.length() + " Characters!");
             System.out.println();
             System.out.println("Buffer Size: " + messenger.bufferLimit);
             System.out.println();
             System.out.println("Executed time: " + timeExecution.Elapse() + " millisecond");
+            System.out.println();
+            System.out.println("Memory Usage before send message: " + (messenger.beforeUsedMem) / 1024 + " KB");
+            System.out.println();
+            System.out.println("Memory Usage after send message: " + messenger.afterUsedMem / 1024 + " KB");
+            System.out.println();
+            System.out.println("Memory used: " + (messenger.afterUsedMem- messenger.beforeUsedMem)/1024 + " KB");
+            System.out.println();
         }
 
         //Show memory
@@ -61,8 +70,8 @@ public class Main {
 //        System.out.println("Memory Usage after send message: " + messenger.afterUsedMem);
 //        System.out.println();
 //        messenger.printMemoryUsage();
-        System.out.printf("Memory used: %s B",messenger.memoryUsedAfter-messenger.memoryUsedBefore);
-        System.out.println("----< Thank you to using GreMes >----");
+
+        System.out.println("----< Thank you for using GreMes >----");
         System.out.println("----< Press any key to exit >----");
     }
 }
